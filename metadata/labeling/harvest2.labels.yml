@@ -1,0 +1,529 @@
+##################################################################################
+
+- dataset: Heart Harvest 2
+  name: id
+  type: text
+  label: false
+  import: examination => uuid()
+
+##################################################################################
+
+- dataset: Heart Harvest 2
+  name: Segmentation URL
+  type: text
+  import: examination => 'http://ec2-54-235-192-121.compute-1.amazonaws.com:8002/?record_v2='
+             +  examination.$extention.assets.links.path
+             +  '&patientId='
+             +  examination.$extention.patienId
+             +  '&position='
+             +  examination.$extention.record.bodyPosition
+             +  '&spot='
+             +  examination.$extention.recordPoint.spot
+             +  '&device='
+             +  examination.$extention.assets.device
+  label: false
+  
+- dataset: Heart Harvest 2
+  name: path 
+  type: text
+  import: examination => examination.$extention.assets.links.path 
+  label: false
+
+- dataset: Heart Harvest 2
+  name: model  
+  type: oneOf
+  values:
+    - iOS
+    - android
+    - eKuore
+    - littmann
+  
+  import: examination => examination.$extention.assets.device 
+  
+  label: true
+  disabled: true
+
+- dataset: Heart Harvest 2
+  name: _import 
+  type: object
+  label: false
+
+##################################################################################
+
+- dataset: Heart Harvest 2
+  name: Examination ID
+  type: text
+  label: true
+  disabled: true
+  import: examination => examination.patientId
+
+# - dataset: Heart Harvest 2
+#   name: Patient Count
+#   type: number
+#   label: true
+#   disabled: true
+
+- dataset: Heart Harvest 2
+  name: Healthy 
+  type: text
+  
+  import: examination => examination.$extention.form.patient.en.healthy
+  
+  label: true
+  disabled: true
+
+- dataset: Heart Harvest 2
+  name: Age (Years) 
+  type: number
+  fractions: 
+    - label: 14+
+      value: 14
+    - label: 18+
+      value: 18
+    - label: 25+
+      value: 25
+    - label: 45+
+      value: 45
+    - label: 60+
+      value: 60
+    - label: 70+
+      value: 70
+
+  import: examination => examination.$extention.form.patient.en.age
+
+  label: true
+  disabled: true
+
+- dataset: Heart Harvest 2
+  name: Gender
+  type: oneOf
+  values:
+    - Female
+    - Male
+  
+  import: examination => examination.$extention.form.patient.en.gender
+  
+  label: true
+  disabled: true
+
+- dataset: Heart Harvest 2
+  name: Ethnicity # TODO define values
+  type: oneOf
+  values:
+    - American Indian 
+    - Alaska Native
+    - Asian
+    - African American
+    - Hispanic/
+    - Latino
+    - Native Hawaiian or Other Pacific Islander
+    - White
+    - Not specified  
+  
+  import: >
+      examination => examination.$extention.form.patient.ethnicity
+  
+  label: true
+  disabled: true
+
+##############################################################################
+
+- dataset: Heart Harvest 2
+  name: Body Position # TODO define values
+  type: oneOf
+  values:
+    - supine
+    - leftDecubitus
+    - sitting
+    - standing
+    - squatting
+    - On Right Side
+  
+  import: examination => examination.$extention.record.bodyPosition 
+  
+  label: true
+  disabled: true
+
+- dataset: Heart Harvest 2
+  name: Body Spot # TODO define values
+  type: oneOf
+  values:
+    - pulmonic
+    - aortic
+    - leftCarotid
+    - rightLowerLung
+    - rightCarotid
+    - mitral
+    - erbsRight
+    - erbsRight 
+    - leftAxillaryPosterior
+    - leftLowerLung
+    - tricuspid
+    - erbs
+    - rightAbdomen 
+    - leftAbdomen
+  
+  import: examination => examination.$extention.record.spot 
+
+  label: true
+  disabled: true
+
+############################################################################
+
+- dataset: Heart Harvest 2
+  name: FINALIZED
+  type: boolean
+  label: false
+
+- dataset: Heart Harvest 2
+  name: Confidence
+  type: oneOf
+  values:
+    - Confident
+    - Not Confident 
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Sound Segmentation
+  type: manyOf
+  values:
+    - Segmented Heart Sound  
+    - Segmented Lung Sound
+    - Segmented Intestinal Sound    
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Final Heart Sound Review Completed
+  type: oneOf
+  values:
+    - Yes
+    - No
+    - N/A
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Final Lung Sound Review Completed 
+  type: oneOf
+  values:
+    - Yes
+    - No
+    - N/A
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Final Vascular Sound Review Completed 
+  type: oneOf
+  values:
+    - Yes
+    - No
+    - N/A
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Intestinal Sounds Review Completed  
+  type: oneOf
+  values:
+    - Yes
+    - No
+    - N/A
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Clinical Metadata Reviewed  
+  type: boolean
+  label: false
+
+- dataset: Heart Harvest 2
+  name: Sound Presentation
+  type: manyOf
+  values:
+    - Heart sound is present  
+    - Lung sound is present 
+    - Periferal vascular sound is present 
+    - Bowel sound is present 
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Recording quality 
+  type: oneOf
+  values:
+    - Best
+    - Good
+    - Bad
+    - Extremely bad
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Class of the informativeness 
+  type: oneOf
+  values:
+    - Informative
+    - Decreased informative
+    - Uninformative
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Type of artifacts , Artifact
+  type: manyOf
+  values:
+    - External noise
+    - Talking
+    - Electrical interference
+    - Low-frequency constant rumble (Muscle rumble)
+    - Big amount of clicking artifacts (Contact with hair)
+    - Bad contact
+    - Clipping
+    - Movement
+    - Low-cut filtering
+    - Vibration Ringing
+    - Unclassified artifact
+    - No artifacts
+  label: true
+
+- dataset: Heart Harvest 2
+  name: S1 Mitral component Loudness   
+  type: oneOf
+  values:
+    - Normal
+    - Loud
+    - Faint
+    - Absent
+    - Varying intensity
+  label: true
+
+- dataset: Heart Harvest 2
+  name: S1 Split Type 
+  type: oneOf
+  values:
+    - Normal
+    - Wide
+    - Inverse
+    - Unknown
+    - Absent
+  label: true
+
+- dataset: Heart Harvest 2
+  name: S1 Description  
+  type: oneOf
+  values:
+    - Loud tricuspid component
+    - Mechanical prosthetic valve sound
+    - N/A
+  label: true
+
+- dataset: Heart Harvest 2
+  name: S2 Split Type 
+  type: oneOf
+  values:
+    - Normal
+    - Wide
+    - Fixed
+    - Paradixical
+    - Unclassifiable
+    - Absent
+  label: true
+
+- dataset: Heart Harvest 2
+  name: S2 description  
+  type: oneOf
+  values:
+    - Normal loudness
+    - Alternating
+    - Loud aortic component
+    - Loud pulmonic component
+    - Loud
+    - Soft
+    - Absent
+    - Mechanical prosthetic valve sound
+  label: true
+
+- dataset: Heart Harvest 2
+  name: S3
+  type: oneOf
+  values:
+    - Present
+    - No present
+  label: true
+  
+- dataset: Heart Harvest 2
+  name: S3 Type  
+  type: oneOf
+  values:
+    - Innocent
+    - Pathological
+    - Unclassifiable
+    - N/A
+  label: true
+  
+- dataset: Heart Harvest 2
+  name: S4
+  type: oneOf
+  values:
+    - Present
+    - No present
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Pathological findings  
+  type: manyOf
+  values:
+    - Summation gallop
+    - Ejection Sound
+    - Pericardial Knock
+    - Additional Systolic Tones 
+    - Additional Diastolic Tones  
+    - Arrhythmias
+    - No Pathology
+  label: true
+
+
+- dataset: Heart Harvest 2
+  name: Arrythmia at the moment of recording  
+  type: oneOf
+  values:
+    - No arrythmia
+    - Premature beats
+    - Atrial fibrillation
+    - Unknoun arrithmia
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Systolic murmurs
+  type: manyOf
+  values:
+    - Systolic murmur undetermined
+    - Still's Murmur
+    - Holosystolic Murmur
+    - Ejection Type Murmur
+    - Non-significant murmur
+    - Midsystolic murmur
+    - Late Systolic Murmur
+    - No systolic murmurs
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Diastolic murmurs
+  type: manyOf
+  values:
+    - Diastolic Murmur Other
+    - Diastolic High Frequency Murmur
+    - Austin Flint murmur
+    - Late diastolic murmur
+    - No diastolic murmurs
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Other murmurs
+  type: manyOf
+  values:
+    - Constant Murmur
+    - Pericardial Friction Rub
+    - No Other Murmurs
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Arterial murmur
+  type: oneOf
+  values:
+    - Absent
+    - Short
+    - Long
+    - Constant
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Respiratory Sound Type
+  type: oneOf
+  values:
+    - Tracheal sound
+    - Lung sound
+    - Bronchial breathing
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Lung Pathologycal Sound
+  type: manyOf
+  values:
+    - Stridor 
+    - Wheeze  
+    - Rhonchus  
+    - Fine crackle  
+    - Coarse crackle  
+    - Pleural friction rub  
+    - Squawk  
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Clinical Diagnosis  
+  type: text
+  label: false
+
+- dataset: Heart Harvest 2
+  name: EKG Diagnosis 
+  type: text
+  label: false
+
+- dataset: Heart Harvest 2
+  name: 1st level comments  
+  type: text
+  label: true
+
+- dataset: Heart Harvest 2
+  name: 2nd level comments  
+  type: text
+  label: true
+
+- dataset: Heart Harvest 2
+  name: Final comments
+  type: text
+  label: true
+
+#######################################################################################
+
+- dataset: Heart Harvest 2
+  name: 1st expert 
+  type: text
+  label: false
+
+- dataset: Heart Harvest 2
+  name: 2nd expert 
+  type: text
+  label: false
+
+- dataset: Heart Harvest 2
+  name: CMO 
+  import: () => "Yaroslav Shpak" 
+  type: text
+  label: false
+
+- dataset: Heart Harvest 2
+  name: TODO 
+  import: () => "Assign 2nd expert"
+  type: text
+  label: false
+
+- dataset: Heart Harvest 2
+  name: updated at 
+  import: () => new Date()
+  type: text
+  label: false
+
+
+- dataset: Heart Harvest 2
+  name: updated by 
+  import: () => "import utils"
+  type: text
+  label: false
+
+- dataset: Heart Harvest 2
+  name: Stage Comment 
+  import: () => "Added by import utils"
+  type: text
+  label: false
+
+- dataset: Heart Harvest 2
+  name: assigned to 
+  import: () => "Yaroslav Shpak"
+  type: text
+  label: false
+

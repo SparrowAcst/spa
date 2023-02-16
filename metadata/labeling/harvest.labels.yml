@@ -1,0 +1,614 @@
+- dataset: Harvest 1
+  name: FINALIZED
+  type: boolean
+  label: false
+
+- dataset: Harvest 1
+  name: Confidence
+  type: oneOf
+  values:
+    - Confident
+    - Not Confident 
+  label: true
+
+- dataset: Harvest 1
+  name: Sound Segmentation
+  type: manyOf
+  values:
+    - Segmented Heart Sound  
+    - Segmented Lung Sound
+    - Segmented Intestinal Sound    
+  import: >
+      (input, label) => label.values.filter( d => input[d] == true) 
+  label: true
+
+- dataset: Harvest 1
+  name: Final Heart Sound Review Completed
+  type: oneOf
+  values:
+    - Yes
+    - No
+    - N/A
+  import: >
+    (input, label) => (isUndefined(input[label.name])) ? "N/A" : "Yes"
+  label: true
+
+
+- dataset: Harvest 1
+  name: Final Lung Sound Review Completed 
+  type: oneOf
+  values:
+    - Yes
+    - No
+    - N/A
+  import: >
+    (input, label) => (isUndefined(input[label.name])) ? "N/A" : (input[label.name]) ? "Yes" : "No"
+  label: true
+
+- dataset: Harvest 1
+  name: Final Vascular Sound Review Completed 
+  type: oneOf
+  values:
+    - Yes
+    - No
+    - N/A
+  import: >
+    (input, label) => (isUndefined(input[label.name])) ? "N/A" : (input[label.name]) ? "Yes" : "No"
+  label: true
+
+- dataset: Harvest 1
+  name: Intestinal Sounds Review Completed  
+  type: oneOf
+  values:
+    - Yes
+    - No
+    - N/A
+  import: >
+    (input, label) => (isUndefined(input[label.name])) ? "N/A" : (input[label.name]) ? "Yes" : "No"
+  label: true
+
+- dataset: Harvest 1
+  name: Clinical Metadata Reviewed  
+  type: boolean
+  label: false
+  
+
+- dataset: Harvest 1
+  name: Sound Presentation
+  type: manyOf
+  values:
+    - Heart sound is present  
+    - Lung sound is present 
+    - Periferal vascular sound is present 
+    - Bowel sound is present 
+  import: >
+      (input, label) => label.values.filter( d => input[d] == true) 
+  label: true
+
+- dataset: Harvest 1
+  name: Recording quality 
+  type: oneOf
+  values:
+    - Best
+    - Good
+    - Bad
+    - Extremely bad
+  label: true
+
+- dataset: Harvest 1
+  name: Class of the informativeness 
+  type: oneOf
+  values:
+    - Informative
+    - Decreased informative
+    - Uninformative
+  label: true
+
+- dataset: Harvest 1
+  name: Type of artifacts , Artifact
+  type: manyOf
+  values:
+    - External noise
+    - Talking
+    - Electrical interference
+    - Low-frequency constant rumble (Muscle rumble)
+    - Big amount of clicking artifacts (Contact with hair)
+    - Bad contact
+    - Clipping
+    - Movement
+    - Low-cut filtering
+    - Vibration Ringing
+    - Unclassified artifact
+    - No artifacts
+  import: >
+      (input, label) => label.values.filter( d => input[label.name].includes(d)) 
+  label: true
+
+- dataset: Harvest 1
+  name: S1 Mitral component Loudness   
+  type: oneOf
+  values:
+    - Normal
+    - Loud
+    - Faint
+    - Absent
+    - Varying intensity
+  label: true
+
+- dataset: Harvest 1
+  name: S1 Split Type 
+  type: oneOf
+  values:
+    - Normal
+    - Wide
+    - Inverse
+    - Unknown
+    - Absent
+  label: true
+
+- dataset: Harvest 1
+  name: S1 Description  
+  type: oneOf
+  values:
+    - Loud tricuspid component
+    - Mechanical prosthetic valve sound
+    - N/A
+  label: true
+
+- dataset: Harvest 1
+  name: S2 Split Type 
+  type: oneOf
+  values:
+    - Normal
+    - Wide
+    - Fixed
+    - Paradixical
+    - Unclassifiable
+    - Absent
+  label: true
+
+- dataset: Harvest 1
+  name: S2 description  
+  type: oneOf
+  values:
+    - Normal loudness
+    - Alternating
+    - Loud aortic component
+    - Loud pulmonic component
+    - Loud
+    - Soft
+    - Absent
+    - Mechanical prosthetic valve sound
+  label: true
+
+- dataset: Harvest 1
+  name: S3
+  type: oneOf
+  values:
+    - Present
+    - No present
+  import: >
+      (input, label) => ( !isUndefined(input[label.name]) ) 
+        ? ( input[label.name] === true )
+            ? "Present"
+            : "No present"
+        : undefined    
+
+  label: true
+  
+- dataset: Harvest 1
+  name: S3 Type  
+  type: oneOf
+  values:
+    - Innocent
+    - Pathological
+    - Unclassifiable
+    - N/A
+  label: true
+  
+- dataset: Harvest 1
+  name: S4
+  type: oneOf
+  values:
+    - Present
+    - No present
+  import: >
+      (input, label) => ( !isUndefined(input[label.name]) ) 
+        ? ( input[label.name] === true )
+            ? "Present"
+            : "No present"
+        : undefined    
+  label: true
+
+- dataset: Harvest 1
+  name: Pathological findings  
+  type: manyOf
+  values:
+    - Summation gallop
+    - Ejection Sound
+    - Pericardial Knock
+    - Additional Systolic Tones 
+    - Additional Diastolic Tones  
+    - Arrhythmias
+    - No Pathology
+  import: >
+      (input, label) => label.values.filter( d => input[d] == true) 
+  label: true
+
+
+- dataset: Harvest 1
+  name: Arrythmia at the moment of recording  
+  type: oneOf
+  values:
+    - No arrythmia
+    - Premature beats
+    - Atrial fibrillation
+    - Unknoun arrithmia
+  label: true
+
+- dataset: Harvest 1
+  name: Systolic murmurs
+  type: manyOf
+  values:
+    - Systolic murmur undetermined
+    - Still's Murmur
+    - Holosystolic Murmur
+    - Ejection Type Murmur
+    - Non-significant murmur
+    - Midsystolic murmur
+    - Late Systolic Murmur
+    - No systolic murmurs
+  import: >
+      (input, label) => label.values.filter( d => input[d] == true) 
+  label: true
+
+- dataset: Harvest 1
+  name: Diastolic murmurs
+  type: manyOf
+  values:
+    - Diastolic Murmur Other
+    - Diastolic High Frequency Murmur
+    - Austin Flint murmur
+    - Late diastolic murmur
+    - No diastolic murmurs
+  import: >
+      (input, label) => label.values.filter( d => input[d] == true) 
+  label: true
+
+- dataset: Harvest 1
+  name: Other murmurs
+  type: manyOf
+  values:
+    - Constant Murmur
+    - Pericardial Friction Rub
+    - No Other Murmurs
+  import: >
+      (input, label) => label.values.filter( d => input[d] == true) 
+  label: true
+
+- dataset: Harvest 1
+  name: Arterial murmur
+  type: oneOf
+  values:
+    - Absent
+    - Short
+    - Long
+    - Constant
+  label: true
+
+- dataset: Harvest 1
+  name: Respiratory Sound Type
+  type: oneOf
+  values:
+    - Tracheal sound
+    - Lung sound
+    - Bronchial breathing
+  label: true
+
+- dataset: Harvest 1
+  name: Lung Pathologycal Sound
+  type: manyOf
+  values:
+    - Stridor 
+    - Wheeze  
+    - Rhonchus  
+    - Fine crackle  
+    - Coarse crackle  
+    - Pleural friction rub  
+    - Squawk  
+  import: >
+      (input, label) => label.values.filter( d => input[d] == true) 
+  label: true
+
+- dataset: Harvest 1
+  name: Clinical Diagnosis  
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: EKG Diagnosis 
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: 1st level comments  
+  type: text
+  label: true
+
+- dataset: Harvest 1
+  name: 2nd level comments  
+  type: text
+  label: true
+
+- dataset: Harvest 1
+  name: Final comments
+  type: text
+  label: true
+
+- dataset: Harvest 1
+  name: Examination ID
+  type: text
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Patient Count
+  type: number
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Age (Years) 
+  type: number
+  fractions: 
+    - label: 14+
+      value: 14
+    - label: 18+
+      value: 18
+    - label: 25+
+      value: 25
+    - label: 45+
+      value: 45
+    - label: 60+
+      value: 60
+    - label: 70+
+      value: 70
+  import: >
+      (input, label) => input[label.name] 
+    
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Gender
+  type: oneOf
+  values:
+    - Female
+    - Male
+  # import: >
+  #     (input, label) => input[label.name] 
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Ethnicity # TODO define values
+  type: oneOf
+  values:
+    - American Indian 
+    - Alaska Native
+    - Asian
+    - African American
+    - Hispanic/
+    - Latino
+    - Native Hawaiian or Other Pacific Islander
+    - White
+    - Not specified  
+  # import: >
+  #     (input, label) => input[label.name] 
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Body Position # TODO define values
+  type: oneOf
+  values:
+    - supine
+    - leftDecubitus
+    - sitting
+    - standing
+    - squatting
+    - On Right Side
+  # import: >
+  #     (input, label) => input[label.name] 
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Body Spot # TODO define values
+  type: oneOf
+  values:
+    - pulmonic
+    - aortic
+    - leftCarotid
+    - rightLowerLung
+    - rightCarotid
+    - mitral
+    - erbsRight
+    - erbsRight 
+    - leftAxillaryPosterior
+    - leftLowerLung
+    - tricuspid
+    - erbs
+    - rightAbdomen 
+    - leftAbdomen
+  # import: >
+  #     (input, label) => input[label.name] 
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Stethoscope Model # TODO define values
+  type: hiperlink
+  calculate: >
+    input => '<a href="http://ec2-54-235-192-121.compute-1.amazonaws.com:8002/?record_v2='
+             +  input["path"]
+             +  '&patientId='
+             +  input["Examination ID"]
+             +  '&position='
+             +  input["Body Position"]
+             +  '&spot='
+             +  input["Body Spot"]
+             +  '&device='
+             +  input["model"]
+             +  '" target="_blank">'
+             +  input["model"]
+             +  '</a>'
+
+- dataset: Harvest 1
+  name: model  
+  type: oneOf
+  values:
+    - iOS
+    - android
+    - eKuore
+    - littmann
+  # import: >
+  #     (input, label) => input[label.name] 
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Segmentation URL # TODO define values
+  type: hiperlink
+  calculate: >
+    input => 'http://ec2-54-235-192-121.compute-1.amazonaws.com:8002/?record_v2='
+             +  input["path"]
+             +  '&patientId='
+             +  input["Examination ID"]
+             +  '&position='
+             +  input["Body Position"]
+             +  '&spot='
+             +  input["Body Spot"]
+             +  '&device='
+             +  input["model"]
+  label: false
+
+
+- dataset: Harvest 1
+  name: Recorded with Fiter  
+  type: oneOf
+  values:
+    - Raw
+    - Dia
+    - Bell
+  # import: >
+  #     (input, label) => input[label.name] 
+  label: true
+  disabled: true
+
+- dataset: Harvest 1
+  name: Healthy 
+  type: text
+  # import: >
+  #     (input, label) => input[label.name] 
+  label: true
+  disabled: true
+  
+- dataset: Harvest 1
+  name: path 
+  type: text
+  import: >
+      (input, label) => input.path.replace(/\%2F/g, "/") 
+  label: false
+
+- dataset: Harvest 1
+  name: _import 
+  # import: >
+  #     (input, label) => input._import 
+  type: object
+  label: false
+
+- dataset: Harvest 1
+  name: 1st expert 
+  import: >
+      (input, label) => {
+        if (!input["FINALIZED"]) return input["Assigned to"]
+        return input["Assigned to"] || input["Reviewer"] || "Yaroslav Shpak"
+      }   
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: 2nd expert 
+  import: >
+      (input, label) => {
+        if (!input["FINALIZED"]) return input["Reviewer"]
+        return input["Reviewer"] || "Yaroslav Shpak"
+      }   
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: CMO 
+  import: >
+      (input, label) => "Yaroslav Shpak" 
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: TODO 
+  import: >
+      (input, label) => {
+        if(input.FINALIZED) return "Finalized"
+        if(!input["Assigned to"] && !input["Reviewer"]) return "Assign 2nd expert"
+        if(!input["Assigned to"] && input["Reviewer"]) return "Assign 1st expert"
+        if( input["Assigned to"] ) return "Continue Labeling"
+      }
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: updated at 
+  import: >
+      (input, label) => new Date()
+  type: text
+  label: false
+
+
+- dataset: Harvest 1
+  name: updated by 
+  import: >
+      (input, label) => "import utils"
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: Stage Comment 
+  import: >
+      (input, label) => "Added by import utils"
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: assigned to 
+  import: >
+      (input, label) => {
+        if(input.FINALIZED) return ""
+        if(!input["Assigned to"] && !input["Reviewer"]) return "Yaroslav Shpak"
+        if(!input["Assigned to"] && input["Reviewer"]) return input["Reviewer"]
+        if(input["Assigned to"] && input["Reviewer"]) return input["Assigned to"]
+      }
+  type: text
+  label: false
+
+
+- dataset: Harvest 1
+  name: Assigned to 
+  type: text
+  label: false
+
+- dataset: Harvest 1
+  name: Reviewer 
+  type: text
+  label: false
+
